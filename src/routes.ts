@@ -7,10 +7,10 @@ import UsuarioController from "./controllers/UsuarioController";
 const routes = Router();
 
 routes.get("/login", UsuarioController.login);
-
-routes.get("/cog/buscarUsuarios", UsuarioController.buscarUsuarios);
 routes.post("/cog/salvarUsuario", UsuarioController.salvarUsuario);
 routes.delete("/cog/excluirUsuario", UsuarioController.excluirUsuario);
+
+//routes.get("/", contaCon)
 
 routes.get("/cog/buscarAplicacoes", AplicacaoController.buscarAplicacoes);
 routes.post("/cog/salvarAplicacao", AplicacaoController.salvarAplicacao);

@@ -11,6 +11,7 @@ class UsuarioController {
       const senha = requisicao.senha as string;
 
       const logado = await service.findUser({ usuario: login, senha });
+      const contas = ""; //buscar contas do usuário
 
       if (logado.length === 0) {
         return res.status(404).json({ status: "erro", msg: "Usuário não encontrado" });
@@ -26,16 +27,6 @@ class UsuarioController {
       }
     } catch (err) {
       return res.status(400).json({ msg: err });
-    }
-  }
-  public async buscarUsuarios(req: Request, res: Response): Promise<Response> {
-    try {
-      const service = new UsuarioService();
-      const result = await service.findUser();
-
-      return res.status(200).json(result);
-    } catch (err) {
-      return res.status(400).json(err);
     }
   }
   public async salvarUsuario({ body: { idUsuario, login, senha, tipoInclusao } }: Request, res: Response): Promise<Response> {
