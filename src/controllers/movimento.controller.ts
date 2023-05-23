@@ -6,9 +6,10 @@ class MovimentoController {
   public async buscarMovimentos(req: Request, res: Response): Promise<Response> {
     try {
       const service = new MovimentoService();
-      const conta = await service.findMovimento();
+      const { idConta } = req.query;
+      const conta = await service.findMovimento({ id_conta: idConta });
 
-      return res.status(200).json({ conta });
+      return res.status(200).json(conta);
     } catch (err) {
       return res.status(400).json({ msg: err });
     }
@@ -21,7 +22,7 @@ class MovimentoController {
         tipo_movimento: tipoMovimento,
         descricao,
         valor,
-        data_movimento: dataMovimento,
+        data_movimento: new Date(),
         id_conta: idConta,
         id_usuario: idUsuario,
       };
@@ -31,17 +32,6 @@ class MovimentoController {
       return res.sendStatus(204);
     } catch (err) {
       return res.status(400).json({ message: err.message });
-    }
-  }
-  public async excluirConta(req: Request, res: Response): Promise<Response> {
-    try {
-      const uService = new MovimentoService();
-      const idConta = parseInt(req.query.idConta as string);
-      await uService.remove(idConta);
-
-      return res.sendStatus(204);
-    } catch (err) {
-      return res.status(400).json(err);
     }
   }
 }
